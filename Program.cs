@@ -135,21 +135,34 @@ namespace DoubleDescription
             }
             public virtual void Print(int n,int k)
             {
-                Console.Write("| {0} |", n);
+                if (n < 10)
+                    Console.Write("| {0} |", n);
+                else
+                    Console.Write("| {0}|", n);
                 for (int i = 0; i < dot.Length; i++)
-                    Console.Write("{0:0.00} ",dot[i]);
-                Console.Write("| {0:0.00} ", z);
+                {
+                    if (dot[i] >= 0)
+                        Console.Write(" ");
+                    Console.Write("{0:0.00} ", dot[i]);
+                }
+                if (z >= 0)
+                    Console.Write("| {0:0.00} ", z);
+                else
+                    Console.Write("|{0:0.00} ", z);
                 for (int i = 0; i < p.Length; i++)
                     if (p[i] == true)
-                        Console.Write("| x ");
+                        Console.Write("|x ");
                     else
-                        Console.Write("|   ");
+                        Console.Write("|  ");
                 for (int i = 0; i < a.Length; i++)
                     if (a[i] == true)
-                        Console.Write("| x ");
+                        Console.Write("|x ");
                     else
-                        Console.Write("|   ");
-                Console.Write("| {0:0.00} |", d);
+                        Console.Write("|  ");
+                if (d >= 0)
+                    Console.Write("| {0:0.00} |", d);
+                else
+                    Console.Write("|{0:0.00} |", d);
             }
             
         }
@@ -265,12 +278,12 @@ namespace DoubleDescription
         {
             Console.Write("| N |");
             for (int i = 0; i < matrix.Length; i++)
-                Console.Write("x{0}   ",i + 1);
+                Console.Write(" x{0}   ",i + 1);
             Console.Write("|  Z   ");
             for (int i = 0; i < matrix.Length; i++)
-                Console.Write("|П{0} ",i + 1);
+                Console.Write("|П{0}",i + 1);
             for (int i = 0; i < (matrix[0].Length); i++)
-                Console.Write("|a{0} ",i + 1);
+                Console.Write("|a{0}",i + 1);
             Console.Write("|  D   |\n");
         }
         static void SwapColloms(float[][] matrix, int k, int l)
@@ -346,6 +359,7 @@ namespace DoubleDescription
             {
                 TableLen = Table.Count;
                 Console.WriteLine("***********************Step next**************************");
+                PrintHeader(matrix);
                 for (int i = 0; i < TableLen; i++)
                     if (Table[i].GetD() < 0)
                         for (int j = 0; j < TableLen; j++)
@@ -389,7 +403,7 @@ namespace DoubleDescription
         }
         static void Main(string[] args)
         {
-            string InputFile = @"C:\MyData\input.txt";
+            string InputFile = @"input.txt";
             float[][] matrix = ReadMatrix(InputFile);
             Otvet First;
             PrintMatrix(matrix);
